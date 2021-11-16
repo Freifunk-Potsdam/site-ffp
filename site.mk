@@ -7,15 +7,18 @@
 
 GLUON_FEATURES := \
 	autoupdater \
+	authorized-keys \
 	ebtables-filter-multicast \
 	ebtables-filter-ra-dhcp \
 	ebtables-limit-arp \
 	mesh-batman-adv-15 \
-	mesh-vpn-fastd \
+	mesh-vpn-tunneldigger \
 	respondd \
 	status-page \
 	web-advanced \
-	web-wizard
+	web-wizard \
+	config-mode-geo-location-osm \
+	wireless-encryption-wpa3
 
 ##	GLUON_SITE_PACKAGES
 #		Specify additional Gluon/OpenWrt packages to include here;
@@ -31,7 +34,7 @@ GLUON_SITE_PACKAGES := iwinfo
 #			opkg compare-versions "$1" '>>' "$2"
 #		to decide if a version is newer or not.
 
-DEFAULT_GLUON_RELEASE := 0.6+exp$(shell date '+%Y%m%d')
+DEFAULT_GLUON_RELEASE := 0.7+exp$(shell date '+%Y%m%d')
 
 # Variables set with ?= can be overwritten from the command line
 
