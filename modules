@@ -1,0 +1,4 @@
+GLUON_SITE_FEEDS='ffp_gluon_packages'
+
+PACKAGES_FFP_GLUON_PACKAGES_REPO=https://github.com/Freifunk-Potsdam/gluon-ffp-packages.git
+PACKAGES_FFP_GLUON_PACKAGES_COMMIT=5e933564309b143c63cdae55ef81b5027527b6d9
