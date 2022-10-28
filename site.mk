@@ -19,7 +19,11 @@ GLUON_FEATURES := \
 	web-advanced \
 	web-wizard \
 	config-mode-geo-location-osm \
-	wireless-encryption-wpa3
+	wireless-encryption-wpa3 \
+	private-wifi \
+	web-private-wifi \
+	ffp-xmlcollect \
+	setup-mode-wifi
 
 ##	GLUON_SITE_PACKAGES
 #		Specify additional Gluon/OpenWrt packages to include here;
