@@ -24,6 +24,11 @@ GLUON_FEATURES := \
 	ffp-xmlcollect \
 	setup-mode-wifi
 
+GLUON_FEATURES_standard := \
+	mesh-wireless-sae
+
+#GLUON_FEATURES_tiny :=
+
 ##	GLUON_SITE_PACKAGES
 #		Specify additional Gluon/OpenWrt packages to include here;
 #		A minus sign may be prepended to remove a packages from the
