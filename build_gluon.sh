@@ -1,11 +1,9 @@
 #!/bin/bash
-GLUON_RELEASE=2022.10
 OPENWRT_VERSION=22.03.2
-TARGETS="x86-generic ath79-generic ath79-nand ramips-mt76x8"
-if [ "$1" != "" ] ; then
-    TARGETS="$1"
-fi
+DEFAULT_TARGETS="x86-generic ath79-generic ath79-nand ramips-mt76x8"
 
+GLUON_RELEASE="${GLUON_RELEASE:-`date +%Y.%m.%d`}"
+TARGETS="${TARGETS:-$DEFAULT_TARGETS}"
 CPUS=`grep -c ^processor /proc/cpuinfo`
 cd `dirname $0`/..
 
