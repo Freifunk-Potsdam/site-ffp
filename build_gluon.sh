@@ -29,3 +29,21 @@ for T in $TARGETS; do
         make GLUON_TARGET=$T GLUON_RELEASE=$GLUON_RELEASE CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER=$OPENWRT_VERSION -j$CPUS
     fi
 done
+if [ "$1" != "" ]; then
+    echo "Creating Manifest..."
+    make manifest GLUON_RELEASE=$GLUON_RELEASE GLUON_AUTOUPDATER_BRANCH=$1
+    if [ -f "$2" ]; then
+        echo "Signing Manifest..."
+        contrib/sign.sh "$2" output/images/sysupgrade/${1}.manifest
+    else
+        echo "Manifest was not signed."
+    fi
+    echo "Creating Changelog..."
+    (
+    git -C site remote get-url origin
+    git -C site diff -s && git -C site status -sb -uall
+    git -C site log `git -C site describe --abbrev=0 --tags`..HEAD
+    ) > output/images/${GLUON_RELEASE}.changes
+fi
+echo "done."
+
