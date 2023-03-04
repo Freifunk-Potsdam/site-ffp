@@ -25,8 +25,18 @@ for T in $TARGETS; do
     echo "Building Target $T..."
     if [ "$1" != "" ]; then
         make GLUON_TARGET=$T GLUON_RELEASE=$GLUON_RELEASE CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER=$OPENWRT_VERSION -j$CPUS GLUON_AUTOUPDATER_ENABLED=1
+        if [ "$?" != "0" ]; then
+            pause
+            make GLUON_TARGET=$T GLUON_RELEASE=$GLUON_RELEASE CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER=$OPENWRT_VERSION -j1 GLUON_AUTOUPDATER_ENABLED=1 V=sc
+            exit
+        fi
     else
         make GLUON_TARGET=$T GLUON_RELEASE=$GLUON_RELEASE CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER=$OPENWRT_VERSION -j$CPUS
+        if [ "$?" != "0" ]; then
+            pause
+            make GLUON_TARGET=$T GLUON_RELEASE=$GLUON_RELEASE CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER=$OPENWRT_VERSION -j1 V=sc
+            exit
+        fi
     fi
 done
 if [ "$1" != "" ]; then
