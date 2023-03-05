@@ -1,5 +1,7 @@
 ##	gluon site.mk makefile example
 
+GLUON_MULTIDOMAIN = 1
+
 ##	GLUON_FEATURES
 #		Specify Gluon features/packages to enable;
 #		Gluon will automatically enable a set of packages
@@ -17,6 +19,7 @@ GLUON_FEATURES := \
 	status-page \
 	web-advanced \
 	web-wizard \
+	config-mode-domain-select \
 	config-mode-geo-location-osm \
 	wireless-encryption-wpa3 \
 	private-wifi \
