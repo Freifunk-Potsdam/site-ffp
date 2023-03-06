@@ -19,6 +19,7 @@ GLUON_FEATURES := \
 	status-page \
 	web-advanced \
 	web-wizard \
+	ssid-changer \
 	config-mode-domain-select \
 	config-mode-geo-location-osm \
 	wireless-encryption-wpa3 \
