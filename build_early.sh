@@ -13,12 +13,12 @@ elif [ "$(git -C site status -s)" != "" ]; then
     echo "Changes in main branch."
     exit
 fi
-YEAR=`date +%Y`
-LASTVER=`git -C site tag -l | grep $YEAR | cut -d. -f2 | sort -g | tail -n1`
+YEAR=$(date +%Y)
+LASTVER=$(git -C site tag -l | grep "$YEAR" | cut -d. -f2 | sort -g | tail -n1)
 if [ "$LASTVER" == "" ]; then
     GLUON_RELEASE="${GLUON_RELEASE:-${YEAR}.1}-${BRANCH}"
 else
-    GLUON_RELEASE="${GLUON_RELEASE:-${YEAR}.$(( $LASTVER + 1 ))}-${BRANCH}"
+    GLUON_RELEASE="${GLUON_RELEASE:-${YEAR}.$(( LASTVER + 1 ))}-${BRANCH}"
 fi
 echo "Building Gluon Release ${GLUON_RELEASE} (${BRANCH}) for targets: ${TARGETS}..."
 if [ ! -f "$1" ]; then
@@ -31,25 +31,24 @@ echo "Updating Modules..."
 make update
 for T in $TARGETS; do
     echo "Building Target $T..."
-    make GLUON_TARGET=$T GLUON_RELEASE=$GLUON_RELEASE CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER=$OPENWRT_VERSION -j$CPUS GLUON_AUTOUPDATER_ENABLED=1
+    make GLUON_TARGET="$T" GLUON_RELEASE="$GLUON_RELEASE" CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER="$OPENWRT_VERSION" -j"$CPUS" GLUON_AUTOUPDATER_ENABLED=1
     if [ "$?" != "0" ]; then
         echo "Error building $T."
         exit
     fi
 done
 echo "Creating Manifest..."
-make manifest GLUON_RELEASE=$GLUON_RELEASE GLUON_AUTOUPDATER_BRANCH=$BRANCH
+make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH"
 if [ -f "$1" ]; then
     echo "Signing Manifest..."
-    contrib/sign.sh "$1" output/images/sysupgrade/${BRANCH}.manifest
+    contrib/sign.sh "$1" output/images/sysupgrade/"${BRANCH}".manifest
 else
     echo "Manifest was not signed."
 fi
 echo "Creating Changelog..."
 (
-git -C site remote get-url origin
-git -C site diff -s && git -C site status -sb -uall
-git -C site log `git -C site describe --abbrev=0 --tags`..HEAD
-) > output/images/${GLUON_RELEASE}.changes
+    git -C site remote get-url origin
+    git -C site diff -s && git -C site status -sb -uall
+    git -C site log "$(git -C site describe --abbrev=0 --tags)"..HEAD
+) > output/images/"${GLUON_RELEASE}".changes
 echo "done."
-
