@@ -6,10 +6,10 @@ test "site" = "$(basename "$(dirname "$(realpath "$0")")")" || exit
 cd "$(dirname "$0")"/.. || exit
 . ./site/build_vars.sh
 
-if [ "`git branch --show-current`" != "main" ]; then
+if [ "$(git -C site branch --show-current)" != "main" ]; then
     echo "Not on main branch."
     exit
-elif [ "`git status -s`" != "" ]; then
+elif [ "$(git -C site status -s)" != "" ]; then
     echo "Changes in main branch."
     exit
 fi
