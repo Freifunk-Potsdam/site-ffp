@@ -18,7 +18,7 @@ if [ ! -f "$1" ]; then
 fi
 
 echo "Cleaning Output..."
-rm -rf output
+test -d ./output && rm -rf ./output
 echo "Updating Modules..."
 make update
 for T in $TARGETS; do
