@@ -2,8 +2,9 @@
 
 BRANCH=testing
 
-cd `dirname $0`/..
-. site/build_vars.sh
+test "site" = "$(basename "$(dirname "$(realpath "$0")")")" || exit
+cd "$(dirname "$0")"/.. || exit
+. ./site/build_vars.sh
 
 GLUON_RELEASE="${GLUON_RELEASE:-`date +%Y.%m.%d`}"
 echo "Building Gluon Release ${GLUON_RELEASE} (${BRANCH}) for targets: ${TARGETS}..."

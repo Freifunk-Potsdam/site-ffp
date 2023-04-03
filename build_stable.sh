@@ -2,8 +2,9 @@
 
 BRANCH=stable
 
-cd `dirname $0`/..
-. site/build_vars.sh
+test "site" = "$(basename "$(dirname "$(realpath "$0")")")" || exit
+cd "$(dirname "$0")"/.. || exit
+. ./site/build_vars.sh
 
 TAG=`git -C site describe --abbrev=0 --tags`
 if [ "`git -C site log ${TAG}..HEAD`" != "" ]; then
