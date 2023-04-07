@@ -26,6 +26,7 @@ GLUON_FEATURES := \
 	private-wifi \
 	web-private-wifi \
 	ffp-xmlcollect \
+	client-isolation \
 	setup-mode-wifi
 
 GLUON_FEATURES_standard := \
