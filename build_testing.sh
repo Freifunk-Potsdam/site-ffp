@@ -21,7 +21,7 @@ for T in $TARGETS; do
     make GLUON_TARGET="$T" GLUON_RELEASE="$GLUON_RELEASE" CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER="$OPENWRT_VERSION" -j"$CPUS" GLUON_AUTOUPDATER_ENABLED=1
     if [ "$?" != "0" ]; then
         echo "Error building $T, press Enter to rebuild with V=sc..."
-        pause
+        read
         make GLUON_TARGET="$T" GLUON_RELEASE="$GLUON_RELEASE" CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER="$OPENWRT_VERSION" -j1 GLUON_AUTOUPDATER_ENABLED=1 V=sc
         exit
     fi
