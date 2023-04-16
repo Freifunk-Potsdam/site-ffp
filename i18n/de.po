@@ -29,7 +29,7 @@ msgstr ""
 "<p>Dein Knoten startet gerade neu und wird anschließend versuchen, sich mit "
 "anderen Freifunkknoten in seiner Nähe über WLAN sowie über deine "
 "Internetverbindung über das VPN-Gateway zu verbinden.</p>"
-"<p>Solltest dein Router über mehr als einen Netzwerkanschluss verfügen "
+"<p>Sollte dein Router über mehr als einen Netzwerkanschluss verfügen "
 "achte darauf, dass der WAN-Port mit deinem Heimnetzwerk verbunden ist, "
 "um ins Internet zu gelangen..</p>"
 
