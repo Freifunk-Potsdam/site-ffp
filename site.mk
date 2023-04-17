@@ -109,6 +109,10 @@ ifeq ($(GLUON_TARGET),ath79-generic)
     GLUON_tp-link-tl-wr842n-v3_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
     GLUON_tp-link-tl-wr1043nd-v4_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
     GLUON_tp-link-tl-wr1043n-v5_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
+
+    GLUON_tp-link-cpe510-v1_SITE_PACKAGES += gluon-ffp-backbone-wifi gluon-web-ffp-backbone-wifi
+    GLUON_tp-link-cpe510-v2_SITE_PACKAGES += gluon-ffp-backbone-wifi gluon-web-ffp-backbone-wifi
+    GLUON_tp-link-cpe510-v3_SITE_PACKAGES += gluon-ffp-backbone-wifi gluon-web-ffp-backbone-wifi
 endif
 
 DEFAULT_GLUON_RELEASE := 0.7+exp$(shell date '+%Y%m%d')
