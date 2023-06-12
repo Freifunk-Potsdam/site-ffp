@@ -25,6 +25,18 @@ for T in $TARGETS; do
         make GLUON_TARGET="$T" GLUON_RELEASE="$GLUON_RELEASE" CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER="$OPENWRT_VERSION" -j1 GLUON_AUTOUPDATER_ENABLED=1 V=sc
         exit
     fi
+    if [ "${BUILD_BROKEN_DEVICES[$T]+x}" != "" ]; then
+        for D in ${BUILD_BROKEN_DEVICES[$T]}; do
+            echo "Building Target $T, broken device $D..."
+            make GLUON_TARGET="$T" GLUON_DEVICE="$D" BROKEN=1 GLUON_RELEASE="$GLUON_RELEASE" CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER="$OPENWRT_VERSION" -j"$CPUS" GLUON_AUTOUPDATER_ENABLED=1
+            if [ "$?" != "0" ]; then
+                echo "Error building $T $D, press Enter to rebuild with V=sc..."
+                read
+                make GLUON_TARGET="$T" GLUON_DEVICE="$D" BROKEN=1 GLUON_RELEASE="$GLUON_RELEASE" CONFIG_VERSIONOPT=y CONFIG_VERSION_NUMBER="$OPENWRT_VERSION" -j1 GLUON_AUTOUPDATER_ENABLED=1 V=sc
+                exit
+            fi
+        done
+    fi
 done
 echo "Creating Manifest..."
 make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH"
