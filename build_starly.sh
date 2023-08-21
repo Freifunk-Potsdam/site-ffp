@@ -31,7 +31,18 @@ for T in $TARGETS; do
     fi
 done
 for BRANCH in stable early testing ; do
-    make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH"
+    today=$( date +%Y-%m-%d )
+    in2w=$( date --date "2 weeks" +%Y-%m-%d )
+    in4w=$( date --date "4 weeks" +%Y-%m-%d )
+    if [ "$BRANCH" == "early" ]; then
+        make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH" GLUON_PRIORITY="3"
+        sed -i "s/DATE=$today /DATE=$in2w /" output/images/sysupgrade/"${BRANCH}".manifest
+    elif [ "$BRANCH" == "stable" ]; then
+        make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH" GLUON_PRIORITY="7"
+        sed -i "s/DATE=$today /DATE=$in4w /" output/images/sysupgrade/"${BRANCH}".manifest
+    else
+        make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH" GLUON_PRIORITY="0"
+    fi
     if [ -f "$1" ]; then
         echo "Signing ${BRANCH}.manifest..."
         contrib/sign.sh "$1" output/images/sysupgrade/"${BRANCH}".manifest
