@@ -9,7 +9,7 @@ GLUON_MULTIDOMAIN = 1
 
 GLUON_FEATURES := \
 	autoupdater \
-	authorized-keys \
+	authorized-keys-optout \
 	ebtables-filter-multicast \
 	ebtables-filter-ra-dhcp \
 	ebtables-limit-arp \
