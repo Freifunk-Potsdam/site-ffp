@@ -22,14 +22,14 @@ GLUON_FEATURES := \
 	ssid-changer \
 	config-mode-domain-select \
 	config-mode-geo-location-osm \
-	wireless-encryption-wpa3 \
-	private-wifi \
-	web-private-wifi \
 	ffp-xmlcollect \
 	client-isolation \
 	setup-mode-wifi
 
 GLUON_FEATURES_standard := \
+	wireless-encryption-wpa3 \
+	private-wifi \
+	web-private-wifi \
 	mesh-wireless-sae
 
 #GLUON_FEATURES_tiny :=
