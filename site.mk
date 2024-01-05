@@ -9,7 +9,7 @@ GLUON_MULTIDOMAIN = 1
 
 GLUON_FEATURES := \
 	autoupdater \
-	authorized-keys \
+	authorized-keys-optout \
 	ebtables-filter-multicast \
 	ebtables-filter-ra-dhcp \
 	ebtables-limit-arp \
@@ -22,14 +22,14 @@ GLUON_FEATURES := \
 	ssid-changer \
 	config-mode-domain-select \
 	config-mode-geo-location-osm \
-	wireless-encryption-wpa3 \
-	private-wifi \
-	web-private-wifi \
 	ffp-xmlcollect \
 	client-isolation \
 	setup-mode-wifi
 
 GLUON_FEATURES_standard := \
+	wireless-encryption-wpa3 \
+	private-wifi \
+	web-private-wifi \
 	mesh-wireless-sae
 
 #GLUON_FEATURES_tiny :=
@@ -96,7 +96,7 @@ INCLUDE_USB_NET := \
 
 ifeq ($(GLUON_TARGET),ath79-generic)
     GLUON_devolo-wifi-pro-1750e_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
-    GLUON_gl.inet-gl-ar150_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE) gluon-preserve-extra-devices
+    GLUON_gl.inet-gl-ar150_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
     GLUON_gl.inet-gl-ar300m-lite_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
     GLUON_gl.inet-gl-ar750_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
     GLUON_joy-it-jt-or750i_SITE_PACKAGES += $(INCLUDE_USB) $(INCLUDE_USB_NET) $(INCLUDE_USB_SERIAL) $(INCLUDE_USB_STORAGE)
