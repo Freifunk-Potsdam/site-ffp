@@ -35,4 +35,4 @@ DEFAULT_TARGETS="
 "
 
 TARGETS="${TARGETS:-$DEFAULT_TARGETS}"
-CPUS=$(nproc)
+CPUS="${CPUS:-$(nproc)}"
