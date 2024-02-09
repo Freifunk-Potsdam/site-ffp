@@ -31,7 +31,11 @@ if device_class('tiny') then
     disable()
 end
 
-local pkgs_usb_hid = {
+local pkgs_usb = {
+    'usbutils',
+}
+
+local pkgs_hid = {
     'kmod-usb-hid',
     'kmod-hid-generic'
 }
@@ -86,70 +90,93 @@ local pkgs_usb_net = {
 }
 
 local pkgs_pci = {
-    'pciutils'
-}
-
-local pkgs_pci_net = {
+    'pciutils',
     'kmod-bnx2'
 }
 
-if target('ath79') then
-    packages(pkgs_usb_serial)
+include_usb = true
+
+-- rtl838x has no USB support as of Gluon v2023.2
+if target('realtek', 'rtl838x') then
+    include_usb = false
 end
 
-if target('ipq40xx') then
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+-- 7M usable firmware space + USB port
+if target('ath79', 'generic') and not device({
+    'devolo-wifi-pro-1750e',
+    'gl.inet-gl-ar150',
+    'gl.inet-gl-ar300m-lite',
+    'gl.inet-gl-ar750',
+    'joy-it-jt-or750i',
+    'netgear-wndr3700-v2',
+    'tp-link-archer-a7-v5',
+    'tp-link-archer-c5-v1',
+    'tp-link-archer-c7-v2',
+    'tp-link-archer-c7-v5',
+    'tp-link-archer-c59-v1',
+    'tp-link-tl-wr842n-v3',
+    'tp-link-tl-wr1043nd-v4',
+    'tp-link-tl-wr1043n-v5',
+}) then
+    include_usb = false
 end
 
-if target('ipq806x') then
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+if target('ramips', 'mt76x8') and not device({
+    'gl-mt300n-v2',
+    'gl.inet-microuter-n300',
+    'netgear-r6120',
+    'ravpower-rp-wd009',
+}) then
+    include_usb = false
 end
 
-if target('mediatek') then
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+-- 7M usable firmware space + USB port
+if device({
+    'avm-fritz-box-7412',
+    'tp-link-td-w8970',
+    'tp-link-td-w8980',
+    'gl-mt300n-v2',
+    'gl.inet-microuter-n300',
+    'netgear-r6120',
+    'ravpower-rp-wd009'
+}) then
+    include_usb = false
 end
 
-if target('mpc85xx') then
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+-- devices without usb ports
+if device({
+    'ubiquiti-unifi-6-lr-v1',
+    'netgear-ex6150',
+    'netgear-ex3700',
+    'ubiquiti-edgerouter-x',
+    'ubiquiti-edgerouter-x-sfp',
+    'zyxel-nwa55axe',
+}) then
+    include_usb = false
 end
 
-if target('ramips', 'mt7621') then
-    packages(pkgs_usb_serial)
-end
-
-if target('rockchip') then
-    -- No PCI / video
+if include_usb then
+    packages(pkgs_usb)
     packages(pkgs_usb_net)
     packages(pkgs_usb_serial)
     packages(pkgs_usb_storage)
 end
 
-if target('sunxi') then
-    -- No PCI / video
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+if target('x86', '64') then
+    -- add guest agent for qemu and vmware
+    packages {
+        'qemu-ga',
+        'open-vm-tools',
+    }
 end
 
--- Include all custom packages for RaspberryPi
+if target('x86') and not target('x86', 'legacy') then
+    packages(pkgs_pci)
+    packages(pkgs_hid)
+end
+
+-- Include pci and hid custom packages for RaspberryPi
 if target('bcm27xx') then
     packages(pkgs_pci)
-    packages(pkgs_pci_net)
-    packages(pkgs_usb_hid)
-    packages(pkgs_usb_net)
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
-end
-
--- Include all custom packages for x86-generic
-if target('x86-generic') then
-    packages(pkgs_pci)
-    packages(pkgs_pci_net)
-    packages(pkgs_usb_hid)
-    packages(pkgs_usb_net)
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+    packages(pkgs_hid)
 end
