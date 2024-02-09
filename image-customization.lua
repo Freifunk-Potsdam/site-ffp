@@ -31,6 +31,11 @@ if device_class('tiny') then
     disable()
 end
 
+local pkgs_usb_hid = {
+    'kmod-usb-hid',
+    'kmod-hid-generic'
+}
+
 -- was: INCLUDE_USB_SERIAL
 local pkgs_usb_serial = {
     'kmod-usb-serial',
