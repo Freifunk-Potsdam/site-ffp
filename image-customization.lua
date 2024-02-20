@@ -182,3 +182,12 @@ if target('bcm27xx') then
     packages(pkgs_pci)
     packages(pkgs_hid)
 end
+
+-- unbreak the device
+-- NOTE: the device does not have a reset button and can be reset via
+--       magic package, see: 
+--       https://github.com/freifunk-darmstadt/network-setup-mode-trigger-os
+if device({'zyxel-nwa55axe'}) then
+    broken(false)
+    packages({'ffda-network-setup-mode'})
+end
