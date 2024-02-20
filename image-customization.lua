@@ -11,7 +11,6 @@ features({
     'status-page',
     'web-advanced',
     'web-wizard',
-    'ssid-changer',
     'config-mode-domain-select',
     'config-mode-geo-location-osm',
     'ffp-xmlcollect',
@@ -24,7 +23,10 @@ features({
 })
 
 -- Additional packages (was: GLUON_SITE_PACKAGES)
-packages({'iwinfo'})
+packages({
+    'iwinfo', 
+    'ffac-ssid-changer',
+})
 
 -- do not build tiny devices
 if device_class('tiny') then
