@@ -20,6 +20,7 @@ features({
     'private-wifi',
     'web-private-wifi',
     'mesh-wireless-sae',
+    'mesh-vpn-sqm',
 })
 
 -- Additional packages (was: GLUON_SITE_PACKAGES)
