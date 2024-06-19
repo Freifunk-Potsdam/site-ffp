@@ -20,12 +20,14 @@ features({
     'private-wifi',
     'web-private-wifi',
     'mesh-wireless-sae',
+    'mesh-vpn-sqm',
 })
 
 -- Additional packages (was: GLUON_SITE_PACKAGES)
 packages({
     'iwinfo', 
     'ffac-ssid-changer',
+    'ffp-fastd-restart',
 })
 
 -- do not build tiny devices
@@ -189,5 +191,8 @@ end
 --       https://github.com/freifunk-darmstadt/network-setup-mode-trigger-os
 if device({'zyxel-nwa55axe'}) then
     broken(false)
-    packages({'ffda-network-setup-mode'})
+    packages({
+        'ffda-network-setup-mode',
+        'ffac-mt7915-hotfix',
+    })
 end
