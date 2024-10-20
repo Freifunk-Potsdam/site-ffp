@@ -5,7 +5,7 @@ set -o nounset
 # show errors in pipes
 set -o pipefail
 
-OPENWRT_VERSION=23.05.2
+OPENWRT_VERSION=23.05.5
 DEFAULT_TARGETS="
     armsr-armv7
     armsr-armv8
