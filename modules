@@ -2,7 +2,7 @@ GLUON_SITE_FEEDS='ffp_gluon_packages community'
 
 PACKAGES_FFP_GLUON_PACKAGES_REPO=https://github.com/Freifunk-Potsdam/gluon-ffp-packages.git
 PACKAGES_FFP_GLUON_PACKAGES_BRANCH=master
-PACKAGES_FFP_GLUON_PACKAGES_COMMIT=13db89fc294dfe516027fe77e2f8b59de641698c
+PACKAGES_FFP_GLUON_PACKAGES_COMMIT=4c5188d87f7fe8a600a3cd489b440b04c9603da2
 
 PACKAGES_COMMUNITY_REPO=https://github.com/freifunk-gluon/community-packages.git
 PACKAGES_COMMUNITY_BRANCH=master

@@ -14,13 +14,13 @@ features({
     'config-mode-domain-select',
     'config-mode-geo-location-osm',
     'ffp-xmlcollect',
-    'client-isolation',
     'setup-mode-wifi',
     'wireless-encryption-wpa3',
     'private-wifi',
     'web-private-wifi',
     'mesh-wireless-sae',
     'mesh-vpn-sqm',
+    'radv-filterd',
 })
 
 -- Additional packages (was: GLUON_SITE_PACKAGES)
