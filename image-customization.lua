@@ -193,6 +193,12 @@ if device({'zyxel-nwa55axe'}) then
     broken(false)
     packages({
         'ffda-network-setup-mode',
-        'ffac-mt7915-hotfix',
     })
+end
+
+if target('ramips', 'mt7621') or target('ramips', 'mt7622') or target('mediatek', 'filogic') then
+    -- restart device if mt7915e driver shows known failure symptom
+    packages {
+        'ffac-mt7915-hotfix',
+    }
 end
