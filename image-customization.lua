@@ -142,7 +142,8 @@ if device({
     'gl-mt300n-v2',
     'gl.inet-microuter-n300',
     'netgear-r6120',
-    'ravpower-rp-wd009'
+    'ravpower-rp-wd009',
+    'tp-link-archer-c2-v1'
 }) then
     include_usb = false
 end
