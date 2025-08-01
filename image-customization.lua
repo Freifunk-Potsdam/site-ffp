@@ -203,3 +203,10 @@ if target('ramips', 'mt7621') or target('ramips', 'mt7622') or target('mediatek'
         'ffac-mt7915-hotfix',
     }
 end
+
+-- fix 5GHz wifi by increasing channel width to 40MHz
+if device({'comfast-cf-ew72'}) then
+    packages({
+        'gluon-cf-ew72-wifi5fix',
+    })
+end
