@@ -98,76 +98,124 @@ local pkgs_pci = {
     'kmod-bnx2'
 }
 
-include_usb = true
+-- only enable USB features on listed devices / targets
+include_usb_all = false
+include_usb_net = false
+
+-- enable USB (net) on devices with USB port and enough flash
+if device({
+    -- ath79-generic
+    'buffalo-wzr-hp-ag300h',                -- 32 MB flash
+    'buffalo-wzr-600dhp',                   -- 32 MB flash
+    'buffalo-wzr-hp-g300nh-rtl8366s',       -- 32 MB flash, alias: buffalo-wzr-hp-g300nh
+    'devolo-wifi-pro-1750e',                -- 16 MB flash
+    'gl.inet-6416',                         -- 16 MB flash
+    'gl.inet-gl-ar150',                     -- 16 MB flash
+    'gl.inet-gl-ar300m-lite',               -- 16 MB flash
+    'gl.inet-gl-ar750',                     -- 16 MB flash
+    'gl.inet-gl-usb150',                    -- 16 MB flash
+    'librerouter-v1',                       -- 16 MB flash
+    'netgear-wndr3700-v2',                  -- 16 MB flash
+    'netgear-wndr3800',                     -- 16 MB flash
+    'netgear-wnr2200-16m',                  -- 16 MB flash
+    'netgear-wndrmac-v2',                   -- 16 MB flash
+    'onion-omega',                          -- 16 MB flash
+    'openmesh-a40',                         -- 16 MB flash
+    'openmesh-a60',                         -- 16 MB flash
+    'sophos-ap100',                         -- 16 MB flash
+    'sophos-ap55',                          -- 16 MB flash
+    'tp-link-archer-a7-v5',                 -- 16 MB flash
+    'tp-link-archer-c5-v1',                 -- 16 MB flash
+    'tp-link-archer-c7-v2',                 -- 16 MB flash
+    'tp-link-archer-c7-v4',                 -- 16 MB flash
+    'tp-link-archer-c7-v5',                 -- 16 MB flash
+    'tp-link-archer-c59-v1',                -- 16 MB flash
+    'tp-link-tl-wr842n-v3',                 -- 16 MB flash
+    'tp-link-tl-wr1043nd-v4',               -- 16 MB flash
+    'ubiquiti-unifi-ac-pro',                -- 16 MB flash
+    -- ath79-mikrotik
+    'mikrotik-routerboard-951ui-2nd-hap',   -- 16 MB flash
+    'mikrotik-routerboard-wapr-2nd',        -- 16 MB flash
+    -- ath79-nand
+    'aerohive-hiveap-121',                  -- 1 + 128 MB NAND
+    'gl.inet-gl-ar300m-nor',                -- 16 + 128 MB NAND
+    'gl.inet-gl-ar750s-nor',                -- 16 + 128 MB NAND
+    'gl.inet-gl-xe300',                     -- 16 + 128 MB NAND
+    'netgear-wndr3700-v4',                  -- 128 MB NAND
+    'netgear-wndr4300',                     -- 128 MB NAND
+    'zyxel-nbg6716',                        -- 16 + 256 MB NAND
+    -- ipq40xx-generic
+    '8devices-jalapeno',                    -- 8 + 128 MB NAND
+    'aruba-ap-303h',                        -- 128 MB NAND, alias: aruba-instant-on-ap11d
+    'aruba-ap-365',                         -- 128 MB NAND, alias: aruba-instant-on-ap17
+    'avm-fritz-box-4040',                   -- 32 MB flash
+    'avm-fritz-box-7520',                   -- 128 MB NAND
+    'avm-fritz-box-7530',                   -- 128 MB NAND
+    'gl.inet-gl-b1300',                     -- 32 MB flash
+    'linksys-ea6350v3',                     -- 128 MB NAND
+    'openmesh-a42',                         -- 32 MB flash
+    'openmesh-a62',                         -- 32 MB flash
+    'plasma-cloud-pa1200',                  -- 32 MB flash
+    'zyxel-nbg6617',                        -- 32 MB flash
+    -- ipq40xx-mikrotik
+    'mikrotik-hap-ac2',                     -- 16 MB flash
+    -- ipq806x-generic
+    'netgear-nighthawk-x4s-r7800',          -- 128 MB NAND
+    -- lantiq-xrx200
+    'arcadyan-vgv7510kw22',                 -- 16 MB flash, alias: o2-box-6431
+    'avm-fritz-box-7360-v2',                -- 32 MB flash
+    'avm-fritz-box-7360-sl',                -- 16 MB flash
+    'avm-fritz-box-7362-sl',                -- 128 MB NAND
+    -- lantiq-xway
+    'netgear-dgn3500b',                     -- 16 MB flash
+    -- mediatek-filogic
+    'asus-tuf-ax4200',                      -- 256 MB NAND
+    'gl.inet-gl-mt3000',                    -- 256 MB NAND
+    -- mediatek-mt7622
+    'linksys-e8450-ubi',                    -- 128 MB NAND
+    -- mpc85xx-p1010
+    'enterasys-ws-ap3715i',                 -- 32 MB flash
+    'sophos-red-15w-rev.1',                 -- 128 MB NAND
+    'tp-link-tl-wdr4900-v1',                -- 16 MB flash
+    -- mpc85xx-p1020
+    'aerohive-hiveap-330',                  -- 64 MB flash
+    'extreme-networks-ws-ap3825i',          -- 64 MB flash
+    'ocedo-panda',                          -- 256 MB NAND
+    -- ramips-mt7620
+    'asus-rt-ac51u',                        -- 16 MB flash
+    'gl-mt300a',                            -- 16 MB flash (+ SD-Card)
+    'gl-mt300n',                            -- 16 MB flash
+    'gl-mt750',                             -- 16 MB flash
+    'xiaomi-miwifi-mini',                   -- 16 MB flash
+    -- ramips-mt7621
+    'asus-rt-ac57u-v1',                     -- 16 MB flash
+    'asus-rt-ax53u',                        -- 128 MB NAND
+    'cudy-wr1300-v1',                       -- 16 MB flash
+    'd-link-dir-860l-b1',                   -- 16 MB flash
+    'genexis-pulse-ex400',                  -- 256 MB NAND
+    'gl.inet-gl-mt1300',                    -- 32 MB flash (+ microSD)
+    'netgear-r6220',                        -- 128 MB NAND
+    'netgear-r6260',                        -- 128 MB NAND
+    'xiaomi-mi-router-3g',                  -- 128 MB NAND (v1)
+    'zbtlink-zbt-wg3526-16m',               -- 16 MB flash
+    'zbtlink-zbt-wg3526-32m',               -- 32 MB flash
+    -- ramips-mt76x8
+    'gl-mt300n-v2',                         -- 16 MB flash
+    'netgear-r6120',                        -- 16 MB flash
+    'ravpower-rp-wd009'                     -- 16 MB flash (+ SD-Card)
+}) then
+    include_usb_net = true
+end
 
 -- rtl838x has no USB support as of Gluon v2023.2
+-- to be save, if we decide to enable USB per default
 if target('realtek', 'rtl838x') then
-    include_usb = false
-end
-
--- 7M usable firmware space + USB port
-if target('ath79', 'generic') and not device({
-    'devolo-wifi-pro-1750e',
-    'gl.inet-gl-ar150',
-    'gl.inet-gl-ar300m-lite',
-    'gl.inet-gl-ar750',
-    'joy-it-jt-or750i',
-    'netgear-wndr3700-v2',
-    'tp-link-archer-a7-v5',
-    'tp-link-archer-c5-v1',
-    'tp-link-archer-c7-v2',
-    'tp-link-archer-c7-v5',
-    'tp-link-archer-c59-v1',
-    'tp-link-tl-wr842n-v3',
-    'tp-link-tl-wr1043nd-v4',
-    'tp-link-tl-wr1043n-v5',
-}) then
-    include_usb = false
-end
-
-if target('ramips', 'mt76x8') and not device({
-    'gl-mt300n-v2',
-    'gl.inet-microuter-n300',
-    'netgear-r6120',
-    'ravpower-rp-wd009',
-}) then
-    include_usb = false
-end
-
--- 7M usable firmware space + USB port
-if device({
-    'avm-fritz-box-7412',
-    'tp-link-td-w8970',
-    'tp-link-td-w8980',
-    'gl-mt300n-v2',
-    'gl.inet-microuter-n300',
-    'netgear-r6120',
-    'ravpower-rp-wd009',
-    'tp-link-archer-c2-v1'
-}) then
-    include_usb = false
-end
-
--- devices without usb ports
-if device({
-    'ubiquiti-unifi-6-lr-v1',
-    'netgear-ex6150',
-    'netgear-ex3700',
-    'ubiquiti-edgerouter-x',
-    'ubiquiti-edgerouter-x-sfp',
-    'zyxel-nwa55axe',
-}) then
-    include_usb = false
-end
-
-if include_usb then
-    packages(pkgs_usb)
-    packages(pkgs_usb_net)
-    packages(pkgs_usb_serial)
-    packages(pkgs_usb_storage)
+    include_usb_all = false
+    include_usb_net = false
 end
 
 if target('x86', '64') then
+    include_usb_all = true
     -- add guest agent for qemu and vmware
     packages {
         'qemu-ga',
@@ -176,14 +224,38 @@ if target('x86', '64') then
 end
 
 if target('x86') and not target('x86', 'legacy') then
+    include_usb_all = true
     packages(pkgs_pci)
     packages(pkgs_hid)
 end
 
--- Include pci and hid custom packages for RaspberryPi
-if target('bcm27xx') then
+-- Raspberry Pi (bcm27xx)
+-- FriendlyARM - NanoPi (rockchip-armv8)
+if target('bcm27xx') or target('rockchip', 'armv8') then
+    include_usb_all = true
+    -- Include pci and hid packages
     packages(pkgs_pci)
     packages(pkgs_hid)
+end
+
+-- Lemaker - Panana Pi (sunxi-cortexa7)
+if target('sunxi', 'cortexa7') then
+    include_usb_all = true
+    packages(pkgs_hid)
+end
+
+-- add all USB packages
+if include_usb_all then
+    packages(pkgs_usb)
+    packages(pkgs_usb_net)
+    packages(pkgs_usb_serial)
+    packages(pkgs_usb_storage)
+end
+
+-- add USB network packages
+if include_usb_net then
+    packages(pkgs_usb)
+    packages(pkgs_usb_net)
 end
 
 -- unbreak the device
