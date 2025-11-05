@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 BRANCH=testing
+SECRET="${1:-}"
 
 test "site" = "$(basename "$(dirname "$(realpath "$0")")")" || exit
 cd "$(dirname "$0")"/.. || exit
@@ -8,7 +9,7 @@ cd "$(dirname "$0")"/.. || exit
 
 GLUON_RELEASE="${GLUON_RELEASE:-$(date +%Y.%m.%d)}"
 echo "Building Gluon Release ${GLUON_RELEASE} (${BRANCH}) for targets: ${TARGETS}..."
-if [ ! -f "$1" ]; then
+if [ ! -f "$SECRET" ]; then
     echo "Manifest will not be signed, because no secret was given."
 fi
 
@@ -28,9 +29,9 @@ for T in $TARGETS; do
 done
 echo "Creating Manifest..."
 make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH"
-if [ -f "$1" ]; then
+if [ -f "$SECRET" ]; then
     echo "Signing Manifest..."
-    contrib/sign.sh "$1" output/images/sysupgrade/"${BRANCH}".manifest
+    contrib/sign.sh "$SECRET" output/images/sysupgrade/"${BRANCH}".manifest
 else
     echo "Manifest was not signed."
 fi

@@ -5,21 +5,42 @@ cd "$(dirname "$0")"/.. || exit
 . ./site/build_vars.sh
 
 GLUON_RELEASE="${GLUON_RELEASE:-$(date +%Y.%m.%d)}"
+SECRET="${1:-}"
+
+echo
 if [ "$(git -C site branch --show-current)" != "main" ]; then
-    echo "Not on main branch."
-    exit
-elif [ "$(git -C site status -s)" != "" ]; then
-    echo "Changes in main branch."
-    exit
+    echo "!!! Site config not on main branch. !!!"
+fi
+if [ "$(git -C site status -s)" != "" ]; then
+    echo "!!! Changes in site config. !!!"
 fi
 
+if [ ! -f "$SECRET" ]; then
+    echo "!!! Manifest will not be signed, because no secret was given. !!!"
+fi
+echo "Gluon version tag: $(git describe --abbrev=0 --tags)"
+echo
 echo "Building Gluon Release ${GLUON_RELEASE} for targets: ${TARGETS}..."
-if [ ! -f "$1" ]; then
-    echo "Manifest will not be signed, because no secret was given."
+echo
+echo -n "Proceed ? [y/N] "
+read yes
+if [ "$yes" != "y" -a "$yes" != "Y" ]; then
+    exit
 fi
 
 echo "Cleaning Output..."
 test -d ./output && rm -rf ./output
+mkdir -p output/images/
+
+echo "Creating Changelog for ${GLUON_RELEASE}..."
+git -C site tag -d "${GLUON_RELEASE}" 2> /dev/null
+(
+    git -C site remote get-url origin
+    git -C site diff -s && git -C site status -sb -uall
+    git -C site log "$(git -C site describe --abbrev=0 --tags)"..HEAD
+) > output/images/"${GLUON_RELEASE}".changes
+git -C site tag "${GLUON_RELEASE}"
+
 echo "Updating Modules..."
 make update
 for T in $TARGETS; do
@@ -43,20 +64,12 @@ for BRANCH in stable early testing ; do
     else
         make manifest GLUON_RELEASE="$GLUON_RELEASE" GLUON_AUTOUPDATER_BRANCH="$BRANCH" GLUON_PRIORITY="0"
     fi
-    if [ -f "$1" ]; then
+    if [ -f "$SECRET" ]; then
         echo "Signing ${BRANCH}.manifest..."
-        contrib/sign.sh "$1" output/images/sysupgrade/"${BRANCH}".manifest
+        contrib/sign.sh "$SECRET" output/images/sysupgrade/"${BRANCH}".manifest
     else
         echo "${BRANCH}.manifest was not signed."
     fi
 done
 
-echo "Creating Changelog..."
-git -C site tag -d "${GLUON_RELEASE}" 2> /dev/null
-(
-    git -C site remote get-url origin
-    git -C site diff -s && git -C site status -sb -uall
-    git -C site log "$(git -C site describe --abbrev=0 --tags)"..HEAD
-) > output/images/"${GLUON_RELEASE}".changes
-git -C site tag "${GLUON_RELEASE}"
 echo "done."
