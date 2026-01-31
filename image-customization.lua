@@ -14,7 +14,7 @@ features({
     'config-mode-domain-select',
     'config-mode-geo-location-osm',
     'ffp-xmlcollect',
-    'setup-mode-wifi',
+--    'setup-mode-wifi',
     'wireless-encryption-wpa3',
     'private-wifi',
     'web-private-wifi',
@@ -26,7 +26,7 @@ features({
 -- Additional packages (was: GLUON_SITE_PACKAGES)
 packages({
     'iwinfo', 
-    'ffac-ssid-changer',
+--    'ffac-ssid-changer',
     'ffp-fastd-restart',
 })
 
