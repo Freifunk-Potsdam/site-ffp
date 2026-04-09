@@ -21,6 +21,7 @@ features({
     'mesh-wireless-sae',
     'mesh-vpn-sqm',
     'radv-filterd',
+    'scheduled-domain-switch',
 })
 
 -- Additional packages (was: GLUON_SITE_PACKAGES)
