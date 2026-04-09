@@ -14,7 +14,7 @@ features({
     'config-mode-domain-select',
     'config-mode-geo-location-osm',
     'ffp-xmlcollect',
---    'setup-mode-wifi',
+    'setup-mode-wifi',
     'wireless-encryption-wpa3',
     'private-wifi',
     'web-private-wifi',
