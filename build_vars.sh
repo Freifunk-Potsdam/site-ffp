@@ -25,7 +25,6 @@ DEFAULT_TARGETS="
     ramips-mt7620
     ramips-mt7621
     ramips-mt76x8
-    realtek-rtl838x
     rockchip-armv8
     sunxi-cortexa7
     x86-64

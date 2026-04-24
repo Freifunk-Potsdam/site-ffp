@@ -21,12 +21,13 @@ features({
     'mesh-wireless-sae',
     'mesh-vpn-sqm',
     'radv-filterd',
+    'scheduled-domain-switch',
 })
 
 -- Additional packages (was: GLUON_SITE_PACKAGES)
 packages({
     'iwinfo', 
-    'ffac-ssid-changer',
+--    'ffac-ssid-changer',
     'ffp-fastd-restart',
 })
 
@@ -281,4 +282,11 @@ if device({'comfast-cf-ew72'}) then
     packages({
         'gluon-cf-ew72-wifi5fix',
     })
+end
+
+-- build fails:
+--   WARNING: Image file ...openwrt-ath79-generic-tplink_archer-c6-v2-squashfs-sysupgrade.bin is too big:  > 7995392
+--   WARNING: Image file ...openwrt-ath79-generic-tplink_archer-c60-v1-squashfs-sysupgrade.bin is too big:  > 8126464
+if device({'tplink_archer-c6-v2'}) or device({'tplink_archer-c60-v1'}) then
+		broken(true)
 end
