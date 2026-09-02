@@ -5,7 +5,7 @@ set -o nounset
 # show errors in pipes
 set -o pipefail
 
-OPENWRT_VERSION=23.05.5
+OPENWRT_VERSION=24.10.8
 DEFAULT_TARGETS="
     armsr-armv7
     armsr-armv8
@@ -17,11 +17,14 @@ DEFAULT_TARGETS="
     ipq40xx-mikrotik
     ipq806x-generic
     lantiq-xrx200
+    lantiq-xrx200_legacy
     lantiq-xway
     mediatek-filogic
     mediatek-mt7622
+    mvebu-cortexa53
     mpc85xx-p1010
     mpc85xx-p1020
+    qualcommax-ipq807x
     ramips-mt7620
     ramips-mt7621
     ramips-mt76x8

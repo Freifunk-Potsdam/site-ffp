@@ -287,6 +287,6 @@ end
 -- build fails:
 --   WARNING: Image file ...openwrt-ath79-generic-tplink_archer-c6-v2-squashfs-sysupgrade.bin is too big:  > 7995392
 --   WARNING: Image file ...openwrt-ath79-generic-tplink_archer-c60-v1-squashfs-sysupgrade.bin is too big:  > 8126464
-if device({'tplink_archer-c6-v2'}) or device({'tplink_archer-c60-v1'}) then
-		broken(true)
+if device({'tp-link-archer-c6-v2-eu-ru-jp'}) or device({'tp-link-archer-c60-v1'}) then
+    disable()
 end

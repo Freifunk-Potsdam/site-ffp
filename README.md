@@ -1,5 +1,5 @@
 ### Building testing images ###
-- `git clone https://github.com/Freifunk-Potsdam/gluon.git -b v2023.2.5-ffp`
+- `git clone https://github.com/freifunk-gluon/gluon.git gluon -b v2025.1.3`
 - `cd gluon`
 - `git clone https://github.com/Freifunk-Potsdam/site-ffp.git -b testing site`
 - `./scripts/container.sh`
